@@ -21,7 +21,7 @@
 To use the script, open your terminal and run the following command:
 
 ```bash
-bash <(curl -s https://raw.githubusercontent.com/Kiya6955/Abuse-Defender/main/abuse-defender.sh)
+bash <(curl -s https://raw.githubusercontent.com/WatchDogsDev/Abuse-Defender/refs/heads/main/abuse-defender.sh)
 ```
 Once the script runs, select option 1 from the menu.
 

@@ -88,6 +88,27 @@ function block_ips {
             main_menu
         fi
 
+        # Whitelist localhost
+        iptables -I abuse-defender-whitelist -d 127.0.0.0/8 -j ACCEPT
+
+        # Whitelist RFC 1918 private ranges
+        iptables -I abuse-defender-whitelist -d 10.0.0.0/8 -j ACCEPT
+        iptables -I abuse-defender-whitelist -d 172.16.0.0/12 -j ACCEPT
+        iptables -I abuse-defender-whitelist -d 192.168.0.0/16 -j ACCEPT
+
+        # Whitelist link-local
+        iptables -I abuse-defender-whitelist -d 169.254.0.0/16 -j ACCEPT
+
+        # Whitelist server's own public IPs
+        for my_ip in $(hostname -I); do
+            iptables -I abuse-defender-whitelist -d "$my_ip" -j ACCEPT
+        done
+
+        read -p "Enter additional subnet to whitelist (or leave blank to skip): " whitelist_subnet
+        if [[ -n "$whitelist_subnet" ]]; then
+            iptables -I abuse-defender-whitelist -d "$whitelist_subnet" -j ACCEPT
+        fi
+
         for IP in $IP_LIST; do
             iptables -A abuse-defender -d $IP -j DROP
         done
