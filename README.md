@@ -44,14 +44,14 @@ Accepted flags: `--non-interactive`, `-y`, `--auto`, `--defaults`
 
 ## Menu Options
 
-| Option | Description |
-|--------|-------------|
-| **1** Block Abuse IP-Ranges | Blocks all IP ranges listed in `abuse-ips.ipv4` via `iptables`. Also blocks known malicious domains by redirecting them to `127.0.0.1` in `/etc/hosts`. |
-| **2** Whitelist an IP / IP-Range | Adds an IP or CIDR range to the whitelist chain so it is never blocked. |
-| **3** Block an IP / IP-Range manually | Adds a custom IP or CIDR range to the block chain. |
-| **4** View Rules | Displays all current rules across the three `abuse-defender` chains. |
-| **5** Clear all rules | Removes all `abuse-defender` iptables rules and restores original DNS settings. |
-| **6** Setup DNS | Configures the system to use Cloudflare for Families (`1.1.1.2`) and Quad9 (`9.9.9.9`) as DNS servers. Supports both `systemd-resolved` and `/etc/resolv.conf`. |
+| Option                                | Description                                                                                                                                                     |
+| ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **1** Block Abuse IP-Ranges           | Blocks all IP ranges listed in `abuse-ips.ipv4` via `iptables`. Also blocks known malicious domains by redirecting them to `127.0.0.1` in `/etc/hosts`.         |
+| **2** Whitelist an IP / IP-Range      | Adds an IP or CIDR range to the whitelist chain so it is never blocked.                                                                                         |
+| **3** Block an IP / IP-Range manually | Adds a custom IP or CIDR range to the block chain.                                                                                                              |
+| **4** View Rules                      | Displays all current rules across the three `abuse-defender` chains.                                                                                            |
+| **5** Clear all rules                 | Removes all `abuse-defender` iptables rules and restores original DNS settings.                                                                                 |
+| **6** Setup DNS                       | Configures the system to use Cloudflare for Families (`1.1.1.2`) and Quad9 (`9.9.9.9`) as DNS servers. Supports both `systemd-resolved` and `/etc/resolv.conf`. |
 
 ## How It Works
 
@@ -79,7 +79,7 @@ The following are whitelisted automatically when blocking abuse ranges:
 
 Option 6 sets up malware-blocking DNS resolvers:
 
-- **Primary:** `1.1.1.2` — Cloudflare for Families (blocks malware & adult content)
+- **Primary:** `1.1.1.2` — Cloudflare for Families (blocks malware)
 - **Secondary:** `9.9.9.9` — Quad9 (blocks malicious domains)
 
 Original DNS configuration is backed up and restored when rules are cleared (option 5).
