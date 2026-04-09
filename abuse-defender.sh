@@ -101,20 +101,6 @@ save_rules() {
     iptables-save > /etc/iptables/rules.v4
 }
 
-# ── Auto-update ───────────────────────────────────────────────────────────────
-setup_auto_update() {
-    local update_script="/root/abuse-defender-update.sh"
-    cat > "$update_script" <<EOF
-#!/bin/bash
-bash "$SCRIPT_PATH" --non-interactive >> /var/log/abuse-defender-update.log 2>&1
-EOF
-    chmod +x "$update_script"
-
-    if ! crontab -l 2>/dev/null | grep -q "abuse-defender-update.sh"; then
-        (crontab -l 2>/dev/null; echo "0 3 * * * $update_script") | crontab -
-    fi
-}
-
 # ── Menu ──────────────────────────────────────────────────────────────────────
 main_menu() {
     while true; do
@@ -312,8 +298,6 @@ clear_chain() {
     for domain in "${MALICIOUS_DOMAINS[@]}"; do
         sed -i "/127\.0\.0\.1 $(printf '%s' "$domain" | sed 's/\./\\./g')/d" /etc/hosts
     done
-
-    crontab -l 2>/dev/null | grep -v "abuse-defender-update.sh" | crontab - 2>/dev/null || true
 
     save_rules
 
